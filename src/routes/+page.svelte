@@ -4,6 +4,10 @@
     function goToRoleSelector() {
       goto('/role-selector');
     }
+
+    function goToSubSystem3() {
+      goto('/project');
+    }
   </script>
   
   <style>
@@ -104,5 +108,6 @@
         and Proactive Protection.
       </p>
       <button on:click={goToRoleSelector}>START</button>
+      <button on:click={goToSubSystem3}>SubSystem3</button>
     </section>
   </div>
