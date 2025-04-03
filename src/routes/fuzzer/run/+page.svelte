@@ -30,6 +30,7 @@
                     console.error("Error:", data.error);
                 } else if(response.status === 206) {
                     networkLinks = data.data;
+                    console.log(networkLinks)
                     networkLinksSize = networkLinks.length;
                     if (page.url.searchParams.get('pageLimit')) {
                         if (networkLinksSize >= parseInt(page.url.searchParams.get('pageLimit').toString())) {
@@ -51,7 +52,7 @@
                     networkLinks = data;
                     networkLinksSize = networkLinks.length;
                     done = true
-
+                    console.log(networkLinks)
                     clearInterval(intervalId)
                 }
                 requestCount = networkLinksSize

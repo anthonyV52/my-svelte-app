@@ -10,6 +10,7 @@
                 console.error("Error:", data.error);
             } else {
                 credentials = data;
+                console.log(credentials)
             }
         } catch (err) {
             console.error("Failed to fetch web scraper data:", err);
