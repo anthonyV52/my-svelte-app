@@ -59,7 +59,7 @@
 			});
 
 			if (!res.ok) throw new Error("Fuzzing failed");
-			goto("/parameterFuzzing/running");
+			goto("/fuzzer/run");
 		} catch (err) {
 			console.error(err);
 		}

@@ -55,7 +55,7 @@
         if (Object.keys(errors).length > 0) return;
 
         console.log("Wordlist submitted:", wordlistConfig);
-        // TODO: Implement API call or processing logic
+        goto("/webScraper")
     }
 </script>
 

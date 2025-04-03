@@ -48,7 +48,7 @@
   });
 
   function runScan(projectId) {
-    goto(`/runTools?role=${role}&projectId=${projectId}`);
+    goto(`/tools`);
   }
 
   function toggleMenu(projectId) {

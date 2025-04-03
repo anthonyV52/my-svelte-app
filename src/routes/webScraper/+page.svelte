@@ -17,11 +17,13 @@
     });
 </script>
 <div>
+    {#key credentials}
     <ul>
     {#each credentials as cred}
          <li>
-             {cred[0]}: {cred[1]}
+             {cred}
          </li>
         {/each}
     </ul>
+        {/key}
 </div>
