@@ -1,11 +1,12 @@
 <script>
     import ToolStatusHeader from "$lib/components/ToolStatusHeader.svelte";
-    import RunningResultsTable from "$lib/components/RunningResultsTable.svelte";
+    import RunningResultsTable from "$lib/components/RunningResultsTableCrawler.svelte";
     import ToolButton from "$lib/components/ToolButton.svelte";
     import {page} from "$app/state";
     import {onDestroy, onMount} from "svelte";
     import {goto} from "$app/navigation";
     import ProgressBar from "$lib/components/ProgressBar.svelte";
+    import RunningResultsTableCrawler from "$lib/components/RunningResultsTableCrawler.svelte";
 
     let networkMap = $state([]);
     let networkMapSize = $state(0)
@@ -114,7 +115,7 @@
     </div>
     <div class="table-display-area">
         {#key networkMapSize}
-    <RunningResultsTable networkMap={networkMap} currSize={networkMapSize}></RunningResultsTable>
+    <RunningResultsTableCrawler networkMap={networkMap} currSize={networkMapSize}></RunningResultsTableCrawler>
             {/key}
     </div>
 </div>

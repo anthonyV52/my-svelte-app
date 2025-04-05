@@ -4,6 +4,7 @@
     let networkMap = $state([])
     networkMap = props.networkMap
     let networkNodeList = $state([])
+    import { fade, slide } from "svelte/transition";
     function traverse(nodes) {
         for (const node of nodes) {
             networkNodeList.push(node)
@@ -32,7 +33,7 @@
         </thead>
         <tbody>
         {#each networkNodeList as node, i}
-            <tr class="running-result">
+            <tr class="running-result" transition:slide>
                 <td class="running-result-ID">{i}</td>
                 <td class="running-result-URL">{node.ip}</td>
                 <td class="running-result-title">{node.path}</td>

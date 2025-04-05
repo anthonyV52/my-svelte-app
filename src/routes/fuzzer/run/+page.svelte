@@ -1,11 +1,12 @@
 <script>
     import ToolStatusHeader from "$lib/components/ToolStatusHeader.svelte";
-    import RunningResultsTable from "$lib/components/RunningResultsTable.svelte";
+    import RunningResultsTable from "$lib/components/RunningResultsTableCrawler.svelte";
     import ToolButton from "$lib/components/ToolButton.svelte";
     import {page} from "$app/state";
     import {onDestroy, onMount} from "svelte";
     import {goto} from "$app/navigation";
     import ProgressBar from "$lib/components/ProgressBar.svelte";
+    import RunningResultsTableFuzzer from "$lib/components/RunningResultsTableFuzzer.svelte";
 
     let networkLinks = $state([]);
     let networkLinksSize = $state(0)
@@ -30,8 +31,7 @@
                     console.error("Error:", data.error);
                 } else if(response.status === 206) {
                     networkLinks = data.data;
-                    console.log(networkLinks)
-                    networkLinksSize = networkLinks.length;
+                    networkLinksSize = networkLinks.length
                     if (page.url.searchParams.get('pageLimit')) {
                         if (networkLinksSize >= parseInt(page.url.searchParams.get('pageLimit').toString())) {
                             clearInterval(intervalId);
@@ -50,19 +50,21 @@
                 }
                 if(response.status === 200){
                     networkLinks = data;
-                    networkLinksSize = networkLinks.length;
                     done = true
-                    console.log(networkLinks)
                     clearInterval(intervalId)
                 }
                 requestCount = networkLinksSize
                 reqSec = currTime/requestCount/1000
             } catch (err) {
-                console.error("Failed to fetch crawler data:", err);
+                console.error("Failed to fetch fuzzer data:", err);
             }
         }, (delay*1.5))
     });
 
+    $effect(()=>{
+        networkLinksSize = Object.keys(networkLinks).length;
+        console.log(networkLinksSize)
+    })
 
     onDestroy(() => {
         clearInterval(intervalId);
@@ -74,7 +76,7 @@
 
 <h1 class="page-header">Fuzzer</h1>
 <div class="page-wrapper">
-    {#key networkLinks}
+    {#key networkLinksSize}
     <ProgressBar currentCount={networkLinksSize}></ProgressBar>
         {/key}
     {#key done}
@@ -99,12 +101,9 @@
         </div>
     </div>
     <div class="table-display-area">
-<!--    <RunningResultsTable networkMap={networkLinks} currSize={networkLinksSize}></RunningResultsTable>-->
-            <ul>
-                {#each networkLinks as link}
-                    <li>{link}</li>
-                    {/each}
-            </ul>
+        {#key networkLinks}
+    <RunningResultsTableFuzzer networkLinks={networkLinks} currSize={networkLinksSize}></RunningResultsTableFuzzer>
+            {/key}
     </div>
 </div>
 <div class="footer-buttons">
